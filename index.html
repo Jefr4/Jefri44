@@ -1,0 +1,260 @@
+l<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendataan Karyawan Kominfo</title>
+    <style>
+        /* Gaya untuk halaman login */
+        body.login-page {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+        }
+        .login-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        .login-container h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .login-container button {
+            width: 100%;
+            padding: 10px;
+            background: #2575fc;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .login-container button:hover {
+            background: #6a11cb;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #ddd;
+        }
+
+        /* Gaya untuk halaman utama */
+        body.dashboard-page {
+            font-family: 'Arial', sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .form-group button {
+            padding: 10px 20px;
+            background: #2575fc;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .form-group button:hover {
+            background: #6a11cb;
+        }
+        .daftar-karyawan {
+            margin-top: 30px;
+        }
+        .daftar-karyawan h2 {
+            margin-bottom: 15px;
+            font-size: 20px;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table th,
+        table td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        table th {
+            background: #f4f4f4;
+            font-weight: bold;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #777;
+        }
+    </style>
+</head>
+<body class="login-page">
+    <!-- Halaman Login -->
+    <div class="login-container" id="loginPage">
+        <h1>Login Admin</h1>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit">Masuk</button>
+        </form>
+        <div class="footer">
+            Dibuat dengan ❤️ oleh <strong>Jefri</strong>
+        </div>
+    </div>
+
+    <!-- Halaman Utama (Awalnya Tersembunyi) -->
+    <div id="dashboardPage" style="display: none;">
+        <div class="header">
+            <h1>Pendataan Karyawan Kominfo</h1>
+        </div>
+        <div class="container">
+            <form id="karyawanForm">
+                <div class="form-group">
+                    <label for="nama">Nama:</label>
+                    <input type="text" id="nama" required>
+                </div>
+                <div class="form-group">
+                    <label for="nip">NIP:</label>
+                    <input type="text" id="nip" required>
+                </div>
+                <div class="form-group">
+                    <label for="jabatan">Jabatan:</label>
+                    <input type="text" id="jabatan" required>
+                </div>
+                <div class="form-group">
+                    <label for="departemen">Departemen:</label>
+                    <input type="text" id="departemen" required>
+                </div>
+                <div class="form-group">
+                    <label for="tanggal_masuk">Tanggal Masuk:</label>
+                    <input type="date" id="tanggal_masuk" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Tambah Karyawan</button>
+                </div>
+            </form>
+
+            <div class="daftar-karyawan">
+                <h2>Daftar Karyawan</h2>
+                <table id="karyawanTable">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>NIP</th>
+                            <th>Jabatan</th>
+                            <th>Departemen</th>
+                            <th>Tanggal Masuk</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data karyawan akan ditampilkan di sini -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="footer">
+            Dibuat dengan ❤️ oleh <strong>Jefri</strong>
+        </div>
+    </div>
+
+    <script>
+        // Fungsi untuk menangani login
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Validasi sederhana
+            if (username === 'admin' && password === 'admin123') {
+                alert('Login berhasil!');
+                // Sembunyikan halaman login dan tampilkan halaman utama
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('dashboardPage').style.display = 'block';
+                document.body.className = 'dashboard-page'; // Ubah class body
+            } else {
+                alert('Username atau password salah!');
+            }
+        });
+
+        // Fungsi untuk menangani form tambah karyawan
+        document.getElementById('karyawanForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const nama = document.getElementById('nama').value;
+            const nip = document.getElementById('nip').value;
+            const jabatan = document.getElementById('jabatan').value;
+            const departemen = document.getElementById('departemen').value;
+            const tanggalMasuk = document.getElementById('tanggal_masuk').value;
+
+            // Tambahkan data ke tabel
+            const table = document.getElementById('karyawanTable').getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow();
+            newRow.innerHTML = `
+                <td>${nama}</td>
+                <td>${nip}</td>
+                <td>${jabatan}</td>
+                <td>${departemen}</td>
+                <td>${tanggalMasuk}</td>
+            `;
+
+            // Reset form
+            document.getElementById('karyawanForm').reset();
+        });
+    </script>
+</body>
+</html>
